@@ -12,6 +12,9 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class CreateProductOptionRequest {
 
+    @NotNull
+    private Long id;
+
     @NotNull(message = "O tipo da opção é obrigatório")
     private ProductOptionType type;
 

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -67,9 +68,11 @@ public class ProductService {
 
     // UPDATE
     public ProductDTO update(Long id, CreateProductRequest request) {
-        Product entity = productRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
 
+        Product entity = productRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado."));
+
+        // Atualiza tipo e preço base
         if (request.getType() != null) {
             entity.setType(request.getType());
         }
@@ -78,20 +81,38 @@ public class ProductService {
             entity.setBasePrice(request.getBasePrice());
         }
 
-        if (request.getOptions() != null) {
-            // apagar opções antigas
-            optionRepository.deleteAll(entity.getOptions());
+        // Atualização parcial das opções
+        if (request.getOptions() != null && !request.getOptions().isEmpty()) {
 
-            // criar novas opções
-            List<ProductOption> newOptions = request.getOptions()
-                    .stream()
-                    .map(this::convertOptionRequestToEntity)
-                    .toList();
+            for (CreateProductOptionRequest optReq : request.getOptions()) {
 
-            newOptions.forEach(opt -> opt.setProduct(entity));
+                // Se não tem ID → ERRO (pois PATCH deve atualizar, não criar)
+                if (optReq.getId() == null) {
+                    throw new IllegalArgumentException(
+                            "Para atualizar uma option é necessário enviar o ID da option."
+                    );
+                }
 
-            entity.setOptions(newOptions);
-            optionRepository.saveAll(newOptions);
+                // Localiza a option existente
+                ProductOption existing = entity.getOptions().stream()
+                        .filter(o -> o.getId().equals(optReq.getId()))
+                        .findFirst()
+                        .orElseThrow(() ->
+                                new IllegalArgumentException(
+                                        "Option com ID " + optReq.getId() + " não encontrada no produto."
+                                )
+                        );
+
+                // Atualiza somente campos enviados
+                if (optReq.getType() != null)
+                    existing.setType(optReq.getType());
+
+                if (optReq.getName() != null)
+                    existing.setName(optReq.getName());
+
+                if (optReq.getAdditionalPrice() != null)
+                    existing.setAdditionalPrice(optReq.getAdditionalPrice());
+            }
         }
 
         productRepository.save(entity);
