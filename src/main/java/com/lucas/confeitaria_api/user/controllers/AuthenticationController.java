@@ -1,6 +1,8 @@
 package com.lucas.confeitaria_api.user.controllers;
 
+import com.lucas.confeitaria_api.config.TokenService;
 import com.lucas.confeitaria_api.user.dto.AuthenticationDTO;
+import com.lucas.confeitaria_api.user.dto.LoginResponseDTO;
 import com.lucas.confeitaria_api.user.dto.RegisterDTO;
 import com.lucas.confeitaria_api.user.entities.User;
 import com.lucas.confeitaria_api.user.repositories.UserRepository;
@@ -25,12 +27,17 @@ public class AuthenticationController {
     @Autowired
     private UserRepository repository;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Validated AuthenticationDTO data) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
-        return ResponseEntity.ok().build();
+        var token = tokenService.generateToken((User) auth.getPrincipal());
+
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @PostMapping("/register")
