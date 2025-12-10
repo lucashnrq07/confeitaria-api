@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,13 +22,16 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-
     @Enumerated(EnumType.STRING)
     private ProductType type;
 
     private BigDecimal basePrice;
 
     @OneToMany(mappedBy = "product")
-    private List<ProductOption> options;
+    private List<ProductOption> options = new ArrayList<>();
+
+    public void addOption(ProductOption option) {
+        option.setProduct(this);
+        this.options.add(option);
+    }
 }

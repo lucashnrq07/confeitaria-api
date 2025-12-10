@@ -1,6 +1,6 @@
 package com.lucas.confeitaria_api.product.entity;
 
-enum ProductOptionType {
+public enum ProductOptionType {
     MASSA,
     RECHEIO,
     TAMANHO;

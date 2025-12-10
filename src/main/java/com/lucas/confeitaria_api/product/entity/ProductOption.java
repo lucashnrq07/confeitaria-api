@@ -1,5 +1,6 @@
 package com.lucas.confeitaria_api.product.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,6 +22,7 @@ public class ProductOption implements Serializable {
     private Long id;
 
     @ManyToOne
+    @JsonIgnore
     private Product product;
 
     @Enumerated(EnumType.STRING)

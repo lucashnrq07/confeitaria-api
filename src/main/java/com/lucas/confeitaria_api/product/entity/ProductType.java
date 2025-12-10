@@ -1,6 +1,6 @@
 package com.lucas.confeitaria_api.product.entity;
 
-enum ProductType {
+public enum ProductType {
     BOLO,
     COOKIE
 }
