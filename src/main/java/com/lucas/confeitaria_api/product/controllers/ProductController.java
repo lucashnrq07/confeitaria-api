@@ -1,9 +1,11 @@
 package com.lucas.confeitaria_api.product.controllers;
 
-import com.lucas.confeitaria_api.product.entities.Product;
+import com.lucas.confeitaria_api.product.dto.CreateProductRequest;
+import com.lucas.confeitaria_api.product.dto.ProductDTO;
 import com.lucas.confeitaria_api.product.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,20 +18,23 @@ public class ProductController {
     ProductService service;
 
     @PostMapping
-    public ResponseEntity<Product> insert(@RequestBody Product product) {
-        Product newProduct = service.insert(product);
-        return ResponseEntity.ok().body(product);
+    public ResponseEntity<ProductDTO> insert(@RequestBody @Validated CreateProductRequest request) {
+        ProductDTO saved = service.insert(request);
+        return ResponseEntity.ok(saved);
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> requestProducts() {
-        List<Product> products = service.getAllProducts();
-        return ResponseEntity.ok().body(products);
+    public ResponseEntity<List<ProductDTO>> requestProducts() {
+        List<ProductDTO> products = service.getAllProducts();
+        return ResponseEntity.ok(products);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product) {
-        Product updated = service.update(id, product);
+    public ResponseEntity<ProductDTO> updateProduct(
+            @PathVariable Long id,
+            @RequestBody CreateProductRequest request) {
+
+        ProductDTO updated = service.update(id, request);
         return ResponseEntity.ok(updated);
     }
 

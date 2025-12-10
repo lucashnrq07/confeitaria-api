@@ -1,53 +1,110 @@
 package com.lucas.confeitaria_api.product.services;
 
+import com.lucas.confeitaria_api.product.dto.CreateProductRequest;
+import com.lucas.confeitaria_api.product.dto.ProductDTO;
+import com.lucas.confeitaria_api.product.dto.CreateProductOptionRequest;
 import com.lucas.confeitaria_api.product.entities.Product;
+import com.lucas.confeitaria_api.product.entities.ProductOption;
+import com.lucas.confeitaria_api.product.repositories.ProductOptionRepository;
 import com.lucas.confeitaria_api.product.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-
 
 @Service
 public class ProductService {
 
     @Autowired
-    ProductRepository repository;
+    private ProductRepository productRepository;
 
-    // inserir produto
-    public Product insert(Product product) {
-        return repository.save(product);
+    @Autowired
+    private ProductOptionRepository optionRepository;
+
+    // INSERT
+    public ProductDTO insert(CreateProductRequest request) {
+
+        // 1. Criar Product
+        Product product = new Product();
+        product.setType(request.getType());
+        product.setBasePrice(request.getBasePrice());
+
+        // 2. Converter opções
+        List<ProductOption> options = request.getOptions()
+                .stream()
+                .map(this::convertOptionRequestToEntity)
+                .toList();
+
+        // 3. Conectar as opções ao produto
+        options.forEach(opt -> opt.setProduct(product));
+
+        product.setOptions(options);
+
+        // 4. Salvar product
+        productRepository.save(product);
+
+        // 5. Salvar opções
+        optionRepository.saveAll(options);
+
+        return new ProductDTO(product);
     }
 
-    // buscar todos os produtos
-    public List<Product> getAllProducts() {
-        List<Product> products = new ArrayList<>(repository.findAll());
-        return products;
+    private ProductOption convertOptionRequestToEntity(CreateProductOptionRequest req) {
+        ProductOption opt = new ProductOption();
+        opt.setType(req.getType());
+        opt.setName(req.getName());
+        opt.setAdditionalPrice(req.getAdditionalPrice());
+        return opt;
     }
 
-    // atualizar um produto
-    public Product update(Long id, Product product) {
-        Product entity = repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado."));
-
-        if (product.getType() != null) {
-            entity.setType(product.getType());
-        }
-        if (product.getOptions() != null) {
-            entity.setOptions(product.getOptions());
-        }
-        if (product.getBasePrice() != null) {
-            entity.setBasePrice(product.getBasePrice());
-        }
-
-        return repository.save(entity);
+    // GET ALL
+    public List<ProductDTO> getAllProducts() {
+        return productRepository.findAll()
+                .stream()
+                .map(ProductDTO::new)
+                .toList();
     }
 
-    // deletar um produto
+    // UPDATE
+    public ProductDTO update(Long id, CreateProductRequest request) {
+        Product entity = productRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
+
+        if (request.getType() != null) {
+            entity.setType(request.getType());
+        }
+
+        if (request.getBasePrice() != null) {
+            entity.setBasePrice(request.getBasePrice());
+        }
+
+        if (request.getOptions() != null) {
+            // apagar opções antigas
+            optionRepository.deleteAll(entity.getOptions());
+
+            // criar novas opções
+            List<ProductOption> newOptions = request.getOptions()
+                    .stream()
+                    .map(this::convertOptionRequestToEntity)
+                    .toList();
+
+            newOptions.forEach(opt -> opt.setProduct(entity));
+
+            entity.setOptions(newOptions);
+            optionRepository.saveAll(newOptions);
+        }
+
+        productRepository.save(entity);
+
+        return new ProductDTO(entity);
+    }
+
+    // DELETE
     public void deleteProduct(Long id) {
-        Product product = repository.findById(id)
+        Product product = productRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Produto não encontrado."));
-        repository.delete(product);
+
+        optionRepository.deleteAll(product.getOptions());
+        productRepository.delete(product);
     }
 }
