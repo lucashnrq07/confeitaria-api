@@ -27,6 +27,7 @@ public class ProductDTO {
         if (entity == null) return;
         this.id = entity.getId();
         this.type = entity.getType();
+        this.size = entity.getSize();
         this.basePrice = entity.getBasePrice();
 
         // converte as opções
