@@ -1,12 +1,11 @@
 package com.lucas.confeitaria_api.config;
 
-import com.lucas.confeitaria_api.product.entity.Product;
-import com.lucas.confeitaria_api.product.entity.ProductOption;
-import com.lucas.confeitaria_api.product.entity.ProductOptionType;
-import com.lucas.confeitaria_api.product.entity.ProductType;
-import com.lucas.confeitaria_api.product.repository.ProductOptionRepository;
-import com.lucas.confeitaria_api.product.repository.ProductRepository;
-import org.hibernate.mapping.Array;
+import com.lucas.confeitaria_api.product.entities.Product;
+import com.lucas.confeitaria_api.product.entities.ProductOption;
+import com.lucas.confeitaria_api.product.entities.ProductOptionType;
+import com.lucas.confeitaria_api.product.entities.ProductType;
+import com.lucas.confeitaria_api.product.repositories.ProductOptionRepository;
+import com.lucas.confeitaria_api.product.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +14,6 @@ import org.springframework.context.annotation.Profile;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 @Configuration
 @Profile("test")

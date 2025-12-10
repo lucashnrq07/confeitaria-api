@@ -1,4 +1,4 @@
-package com.lucas.confeitaria_api.product.entity;
+package com.lucas.confeitaria_api.product.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
