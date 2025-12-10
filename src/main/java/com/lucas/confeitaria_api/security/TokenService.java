@@ -1,4 +1,4 @@
-package com.lucas.confeitaria_api.config;
+package com.lucas.confeitaria_api.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

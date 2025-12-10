@@ -1,6 +1,6 @@
 package com.lucas.confeitaria_api.user.controllers;
 
-import com.lucas.confeitaria_api.config.TokenService;
+import com.lucas.confeitaria_api.security.TokenService;
 import com.lucas.confeitaria_api.user.dto.AuthenticationDTO;
 import com.lucas.confeitaria_api.user.dto.LoginResponseDTO;
 import com.lucas.confeitaria_api.user.dto.RegisterDTO;

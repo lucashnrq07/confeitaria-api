@@ -1,4 +1,4 @@
-package com.lucas.confeitaria_api.config;
+package com.lucas.confeitaria_api.security;
 
 import com.lucas.confeitaria_api.user.repositories.UserRepository;
 import jakarta.servlet.FilterChain;
