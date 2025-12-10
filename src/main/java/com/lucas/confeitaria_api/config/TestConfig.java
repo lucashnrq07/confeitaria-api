@@ -1,9 +1,6 @@
 package com.lucas.confeitaria_api.config;
 
-import com.lucas.confeitaria_api.product.entities.Product;
-import com.lucas.confeitaria_api.product.entities.ProductOption;
-import com.lucas.confeitaria_api.product.entities.ProductOptionType;
-import com.lucas.confeitaria_api.product.entities.ProductType;
+import com.lucas.confeitaria_api.product.entities.*;
 import com.lucas.confeitaria_api.product.repositories.ProductOptionRepository;
 import com.lucas.confeitaria_api.product.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +29,8 @@ public class TestConfig implements CommandLineRunner {
         Product bolo = new Product();
         bolo.setType(ProductType.BOLO);
         bolo.setBasePrice(new BigDecimal("20.00"));
-        bolo.setOptions(new ArrayList<>()); // MUITO IMPORTANTE!
+        bolo.setSize(CakeSize.VINTE);
+        bolo.setOptions(new ArrayList<>());
 
         // Opções
         ProductOption massa = new ProductOption(null, null, ProductOptionType.MASSA, "Chocolate", new BigDecimal("3.00"));
@@ -40,16 +38,13 @@ public class TestConfig implements CommandLineRunner {
         ProductOption recheio1 = new ProductOption(null, null, ProductOptionType.RECHEIO, "Brigadeiro", new BigDecimal("5.00"));
         ProductOption recheio2 = new ProductOption(null, null, ProductOptionType.RECHEIO, "Ninho", new BigDecimal("4.00"));
 
-        ProductOption tamanho = new ProductOption(null, null, ProductOptionType.TAMANHO, "20cm", new BigDecimal("10.00"));
-
         // Relacionando corretamente
         bolo.addOption(massa);
         bolo.addOption(recheio1);
         bolo.addOption(recheio2);
-        bolo.addOption(tamanho);
 
         // Salvar no banco
         productRepository.save(bolo);
-        productOptionRepository.saveAll(Arrays.asList(massa, recheio1, recheio2, tamanho));
+        productOptionRepository.saveAll(Arrays.asList(massa, recheio1, recheio2));
     }
 }

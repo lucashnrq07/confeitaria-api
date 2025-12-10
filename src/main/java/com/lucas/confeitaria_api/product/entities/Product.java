@@ -25,6 +25,9 @@ public class Product implements Serializable {
     @Enumerated(EnumType.STRING)
     private ProductType type;
 
+    @Enumerated(EnumType.STRING)
+    private CakeSize size;
+
     private BigDecimal basePrice;
 
     @OneToMany(mappedBy = "product")

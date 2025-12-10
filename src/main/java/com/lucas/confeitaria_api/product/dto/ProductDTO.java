@@ -1,5 +1,6 @@
 package com.lucas.confeitaria_api.product.dto;
 
+import com.lucas.confeitaria_api.product.entities.CakeSize;
 import com.lucas.confeitaria_api.product.entities.Product;
 import com.lucas.confeitaria_api.product.entities.ProductOption;
 import com.lucas.confeitaria_api.product.entities.ProductType;
@@ -17,6 +18,7 @@ public class ProductDTO {
 
     private Long id;
     private ProductType type;
+    private CakeSize size;
     private BigDecimal basePrice;
     private List<ProductOptionDTO> options;
 
