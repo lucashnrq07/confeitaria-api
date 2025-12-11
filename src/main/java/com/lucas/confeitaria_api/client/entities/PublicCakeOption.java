@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "tb_public_cake_options")
+@Table(name = "tb_cake_options")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

@@ -20,16 +20,15 @@ public class PublicOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // ⚠️ não pode ser CakeSize diretamente sem @ManyToOne
     @ManyToOne
     @JoinColumn(name = "cake_size_id")
-    private CakeSize size;   // renomeei para size, não sizeId
+    private CakeSize size;
 
     @Enumerated(EnumType.STRING)
     private RecipeType type; // tipo de recheio (BRIGADEIRO, MOUSSE)
 
-    private String chosenRecheio; // sabor do recheio (visual)
-    private String chosenMassa;    // sabor da massa (visual)
+    private String chosenRecheio; // sabor do recheio
+    private String chosenMassa;    // sabor da massa
 
     private BigDecimal finalPrice; // preço calculado
 }

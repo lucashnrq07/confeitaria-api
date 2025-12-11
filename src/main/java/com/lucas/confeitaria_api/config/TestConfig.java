@@ -7,6 +7,9 @@ import com.lucas.confeitaria_api.admin.entities.RecipeUsage;
 import com.lucas.confeitaria_api.admin.repositories.CakeSizeRepository;
 import com.lucas.confeitaria_api.admin.repositories.RecipeRepository;
 import com.lucas.confeitaria_api.admin.repositories.RecipeUsageRepository;
+import com.lucas.confeitaria_api.client.entities.PublicCakeOption;
+import com.lucas.confeitaria_api.client.repositories.PublicCakeOptionRepository;
+import com.lucas.confeitaria_api.client.repositories.PublicOrderRepository;
 import com.lucas.confeitaria_api.user.entities.User;
 import com.lucas.confeitaria_api.user.entities.UserRole;
 import com.lucas.confeitaria_api.user.repositories.UserRepository;
@@ -39,6 +42,12 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     RecipeUsageRepository recipeUsageRepository;
+
+    @Autowired
+    PublicOrderRepository publicOrderRepository;
+
+    @Autowired
+    PublicCakeOptionRepository optionRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -73,5 +82,11 @@ public class TestConfig implements CommandLineRunner {
         RecipeUsage recipeUsage1 = new RecipeUsage(null, cakeSizeRepository.getReferenceById(1L), recipeRepository.getReferenceById(1L), 1.0);
         RecipeUsage recipeUsage2 = new RecipeUsage(null, cakeSizeRepository.getReferenceById(1L), recipeRepository.getReferenceById(2L), 2.0);
         recipeUsageRepository.saveAll(Arrays.asList(recipeUsage1, recipeUsage2));
+
+        optionRepository.save(new PublicCakeOption(null, RecipeType.MASSA, "Chocolate"));
+        optionRepository.save(new PublicCakeOption(null, RecipeType.MASSA, "Baunilha"));
+        optionRepository.save(new PublicCakeOption(null, RecipeType.BRIGADEIRO, "Nutella"));
+        optionRepository.save(new PublicCakeOption(null, RecipeType.MOUSSE, "Maracujá"));
+
     }
 }
