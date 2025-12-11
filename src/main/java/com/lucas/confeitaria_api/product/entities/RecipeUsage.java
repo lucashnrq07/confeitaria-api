@@ -26,5 +26,5 @@ public class RecipeUsage {
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;
 
-    private BigDecimal quantityUsed;
+    private Double quantityUsed;
 }
