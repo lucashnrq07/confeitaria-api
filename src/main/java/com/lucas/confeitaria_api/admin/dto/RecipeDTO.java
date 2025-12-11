@@ -1,9 +1,7 @@
-package com.lucas.confeitaria_api.product.dto;
+package com.lucas.confeitaria_api.admin.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.lucas.confeitaria_api.product.entities.RecipeType;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import com.lucas.confeitaria_api.admin.entities.RecipeType;
 
 import java.math.BigDecimal;
 

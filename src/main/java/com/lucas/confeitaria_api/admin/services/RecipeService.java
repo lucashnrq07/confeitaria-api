@@ -1,7 +1,7 @@
-package com.lucas.confeitaria_api.product.services;
+package com.lucas.confeitaria_api.admin.services;
 
-import com.lucas.confeitaria_api.product.entities.Recipe;
-import com.lucas.confeitaria_api.product.repositories.RecipeRepository;
+import com.lucas.confeitaria_api.admin.entities.Recipe;
+import com.lucas.confeitaria_api.admin.repositories.RecipeRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
-package com.lucas.confeitaria_api.product.controllers;
+package com.lucas.confeitaria_api.admin.controllers;
 
-import com.lucas.confeitaria_api.product.entities.CakeSize;
-import com.lucas.confeitaria_api.product.services.CakeSizeService;
+import com.lucas.confeitaria_api.admin.entities.CakeSize;
+import com.lucas.confeitaria_api.admin.services.CakeSizeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

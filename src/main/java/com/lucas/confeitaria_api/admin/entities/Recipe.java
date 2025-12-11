@@ -1,4 +1,4 @@
-package com.lucas.confeitaria_api.product.entities;
+package com.lucas.confeitaria_api.admin.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -6,19 +6,21 @@ import lombok.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "tb_cake_sizes")
+@Table(name = "tb_recipes")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-public class CakeSize {
+public class Recipe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String size;
-    private Integer servings;
-    private BigDecimal basePrice;
+    @Enumerated(EnumType.STRING)
+    private RecipeType type;
+
+    private String name;
+    private BigDecimal recipeCost;
 }

@@ -1,7 +1,7 @@
-package com.lucas.confeitaria_api.product.controllers;
+package com.lucas.confeitaria_api.admin.controllers;
 
-import com.lucas.confeitaria_api.product.dto.CakeCostResponseDTO;
-import com.lucas.confeitaria_api.product.services.CostCalculatorService;
+import com.lucas.confeitaria_api.admin.dto.CakeCostResponseDTO;
+import com.lucas.confeitaria_api.admin.services.CostCalculatorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

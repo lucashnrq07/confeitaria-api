@@ -1,9 +1,7 @@
-package com.lucas.confeitaria_api.product.entities;
+package com.lucas.confeitaria_api.admin.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "tb_recipe_usages")

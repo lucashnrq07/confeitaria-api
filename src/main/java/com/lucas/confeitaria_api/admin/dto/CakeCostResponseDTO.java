@@ -1,4 +1,4 @@
-package com.lucas.confeitaria_api.product.dto;
+package com.lucas.confeitaria_api.admin.dto;
 
 import java.util.List;
 
