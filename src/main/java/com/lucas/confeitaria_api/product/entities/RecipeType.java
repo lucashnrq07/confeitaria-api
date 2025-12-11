@@ -1,6 +1,7 @@
 package com.lucas.confeitaria_api.product.entities;
 
-public enum ProductOptionType {
+public enum RecipeType {
     MASSA,
-    RECHEIO
+    BRIGADEIRO,
+    MOUSSE
 }

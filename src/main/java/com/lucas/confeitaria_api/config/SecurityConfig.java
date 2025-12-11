@@ -1,5 +1,6 @@
-package com.lucas.confeitaria_api.security;
+package com.lucas.confeitaria_api.config;
 
+import com.lucas.confeitaria_api.security.SecurityFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,8 +39,6 @@ public class SecurityConfig {
                         .requestMatchers("/h2-console/**").permitAll() // liberar acesso total ao console
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
-                        .requestMatchers("/products/**").hasRole("ADMIN")
-                        .requestMatchers("/options/**").hasRole("ADMIN")
                         .requestMatchers("/orders/**").authenticated()
                         .anyRequest().authenticated()
                 )
