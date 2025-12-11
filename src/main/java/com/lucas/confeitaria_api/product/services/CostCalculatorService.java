@@ -58,10 +58,11 @@ public class CostCalculatorService {
             );
         }).toList();
 
-        // 4. Calcular custo total
+        // 4. Calcular custo total (somando o basePrice)
         BigDecimal totalCost = usageDTOs.stream()
                 .map(RecipeUsageDTO::totalCost)
                 .reduce(BigDecimal.ZERO, BigDecimal::add)
+                .add(cakeSize.getBasePrice()) // soma o basePrice
                 .setScale(2, RoundingMode.HALF_UP);
 
         // 5. Preço final ao cliente (exemplo fixo)
