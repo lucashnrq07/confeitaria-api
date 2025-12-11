@@ -70,9 +70,6 @@ public class TestConfig implements CommandLineRunner {
         BigDecimal priceBrigadeiro = cakeSize.getPriceFor(RecipeType.BRIGADEIRO);
         BigDecimal priceMousse = cakeSize.getPriceFor(RecipeType.MOUSSE);
 
-        System.out.println("Preço Brigadeiro: " + priceBrigadeiro); // 145.00
-        System.out.println("Preço Mousse: " + priceMousse);         // 156.00
-
         RecipeUsage recipeUsage1 = new RecipeUsage(null, cakeSizeRepository.getReferenceById(1L), recipeRepository.getReferenceById(1L), 1.0);
         RecipeUsage recipeUsage2 = new RecipeUsage(null, cakeSizeRepository.getReferenceById(1L), recipeRepository.getReferenceById(2L), 2.0);
         recipeUsageRepository.saveAll(Arrays.asList(recipeUsage1, recipeUsage2));
