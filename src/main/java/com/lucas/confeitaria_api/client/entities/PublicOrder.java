@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_public_orders")
@@ -27,7 +28,11 @@ public class PublicOrder {
     @Enumerated(EnumType.STRING)
     private RecipeType type; // tipo de recheio (BRIGADEIRO, MOUSSE)
 
-    private String chosenRecheio; // sabor do recheio
+    @ElementCollection
+    @CollectionTable(name = "tb_public_order_recheios", joinColumns = @JoinColumn(name = "order_id"))
+    @Column(name = "recheio")
+    private List<String> chosenRecheios;
+
     private String chosenMassa;    // sabor da massa
 
     private BigDecimal finalPrice; // preço calculado

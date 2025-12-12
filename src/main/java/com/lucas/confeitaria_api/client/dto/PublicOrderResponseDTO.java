@@ -1,8 +1,13 @@
 package com.lucas.confeitaria_api.client.dto;
 
-import com.lucas.confeitaria_api.admin.entities.RecipeType;
-
 import java.math.BigDecimal;
+import java.util.List;
 
-public record PublicOrderResponseDTO(Long id, Long cakeSizeId, String cakeSizeName, Integer servings, RecipeType type, String chosenRecheio, String chosenMassa, BigDecimal finalPrice) {
+public record PublicOrderResponseDTO(
+        Long id,
+        String size,
+        String type,
+        List<String> chosenRecheios,
+        String chosenMassa,
+        BigDecimal finalPrice) {
 }

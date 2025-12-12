@@ -39,7 +39,12 @@ public class SecurityConfig {
                         .requestMatchers("/h2-console/**").permitAll() // liberar acesso total ao console
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
-                        .requestMatchers("/orders/**").authenticated()
+                        .requestMatchers("/recipe-usages/**").hasRole("ADMIN")
+                        .requestMatchers("/recipes/**").hasRole("ADMIN")
+                        .requestMatchers("/products/cost/**").hasRole("ADMIN")
+                        .requestMatchers("/cake-sizes/**").hasRole("ADMIN")
+                        .requestMatchers("/public-orders/**").authenticated()
+                        .requestMatchers("/cake-options/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

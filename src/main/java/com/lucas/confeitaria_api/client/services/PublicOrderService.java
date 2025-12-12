@@ -57,7 +57,7 @@ public class PublicOrderService {
         PublicOrder order = new PublicOrder();
         order.setSize(cakeSize);
         order.setType(req.type());
-        order.setChosenRecheio(req.chosenRecheio());
+        order.setChosenRecheios(req.chosenRecheios());
         order.setChosenMassa(req.chosenMassa());
 
         BigDecimal finalPrice = cakeSize.getPriceFor(req.type());
@@ -67,14 +67,13 @@ public class PublicOrderService {
 
         return new PublicOrderResponseDTO(
                 saved.getId(),
-                cakeSize.getId(),
-                cakeSize.getSize(),
-                cakeSize.getServings(),
-                saved.getType(),
-                saved.getChosenRecheio(),
+                saved.getSize().getSize(),
+                saved.getType().name(),
+                saved.getChosenRecheios(),
                 saved.getChosenMassa(),
                 saved.getFinalPrice()
         );
+
     }
 
 }
